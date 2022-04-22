@@ -89,7 +89,6 @@ export default function EmployeeForm({
   const getEmployeeByCode = async (code) => {
     await EmployeeService.getByCode(code)
       .then((response) => {
-
         const dateOfBirth = new Date(response.dateOfBirth)
             .toISOString()
             .split("T")[0];

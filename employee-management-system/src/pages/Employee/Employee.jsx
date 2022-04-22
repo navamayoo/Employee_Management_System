@@ -101,9 +101,9 @@ const handelSetOpenPopup = (val) => {
           />
         </Toolbar>
         <TableContainer container={Paper}>
-          <Table border="1">
+          <Table border="1" sx={{ borderColor: 'primary.main' }}>
             <TableHead>
-              <TableRow className={classes.root}>
+              <TableRow className={classes.root} sx={{ "& td": { padding: 0 ,textAlign:'center'}}}>
                 <TableCell>Code</TableCell>
                 <TableCell>First Name</TableCell>
                 <TableCell>Last Name</TableCell>
@@ -115,12 +115,12 @@ const handelSetOpenPopup = (val) => {
             <TableBody>
               {records.length > 0
                 ? records.map((record) => (
-                    <TableRow key={record.employeeId}>
+                    <TableRow key={record.employeeId} sx={{ "& td": { padding: 0 ,textAlign:'center'},"&.MuiTableRow-root:hover":{backgroundColor: '#c8e6c9' } }}>
                       <TableCell>{record.employeeId}</TableCell>
                       <TableCell>{record.firstName}</TableCell>
                       <TableCell>{record.lastName}</TableCell>
                       <TableCell>{record.email}</TableCell>
-                      <TableCell>{record.dateOfBirth}</TableCell>
+                      <TableCell>{new Date(record.dateOfBirth).toISOString().split("T")[0]} </TableCell>
                       <TableCell>
                         <Control.ActionButton
                           size="small"

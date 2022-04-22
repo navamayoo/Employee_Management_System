@@ -101,7 +101,7 @@ export default function Department() {
             <TableBody>
             {records.length > 0
                 ? records.map((record) => (
-                    <TableRow key={record.departmentId}>
+                    <TableRow key={record.departmentId} sx={{ "& td": { padding: 0 }}}>
                       <TableCell>{record.departmentId}</TableCell>
                       <TableCell>{record.departmentName}</TableCell>
                       <TableCell>
