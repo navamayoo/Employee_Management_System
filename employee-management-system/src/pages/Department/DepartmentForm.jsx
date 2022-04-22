@@ -13,7 +13,7 @@ export default function DepartmentForm({
   setCode,
   setPopupClose
 }) {
-  //const [loading, setLoading]=useState();
+
 
   const initValues = {
     departmentName: "",
@@ -64,7 +64,7 @@ export default function DepartmentForm({
         console.log(e);
       });
   };
-  console.log("form-Values", formValues);
+ 
 
   return (
     <>

@@ -19,6 +19,7 @@ import EmployeeService from "../../service/EmployeeService";
 import { makeStyles } from "@mui/styles";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import DialogBox from "../../components/controls/Dialog/DialogBox";
 
 const useStyles = makeStyles({
   root: {
@@ -36,7 +37,8 @@ export default function Employee() {
   const [FormSubmitted, setFormSubmitted] = useState(0);
   // const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
-  const [selectedEmployeeCode, setSelectedEmployeeCode] = useState(null);
+  const [selectedCode, setSelectedCode] = useState(null);
+  const [open, setOpen] = useState(false);
 
   const getStudents = async () => {
     await EmployeeService.getAll()
@@ -47,6 +49,27 @@ export default function Employee() {
         console.log(e);
       });
   };
+
+  
+  const deleteNote = async () => {
+   
+    await EmployeeService.delete(selectedCode)
+      .then((response) => {
+        setSelectedCode(null)
+        setOpen(false)
+        setFormSubmitted((prev) => prev + 1);
+        console.log(response);
+        
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+
+};
+
+const handelSetOpenPopup = (val) => {
+  setOpenPopup(val);
+};
 
   useEffect(() => {
     getStudents();
@@ -104,13 +127,17 @@ export default function Employee() {
                           color="primary"
                           onClick={() => {
                             setOpenPopup(true);
-                            setSelectedEmployeeCode(record.employeeId);
+                            setSelectedCode(record.employeeId);
                             setLoading(false);
                           }}
                         >
                           <EditIcon fontSize="small" />
                         </Control.ActionButton>
-                        <Control.ActionButton size="small" color="error">
+                        <Control.ActionButton size="small" color="error"
+                        onClick={() => {
+                          setOpen(true);
+                          setSelectedCode(record.employeeId);
+                        }}>
                           <DeleteIcon fontSize="small" />
                         </Control.ActionButton>
                       </TableCell>
@@ -128,13 +155,21 @@ export default function Employee() {
       >
         {openPopup && (
           <EmployeeForm
-          employeeCode={selectedEmployeeCode}
+          employeeCode={selectedCode}
+          setCode={() => setSelectedCode(null)}
             loading={loading}
             setLoading={(val) => setLoading(val)}
             setFormSubmitted={setFormSubmitted}
+            setPopupClose={handelSetOpenPopup}
           />
         )}
       </Popup>
+      <DialogBox
+        title="Warning Record will be Delete"
+        open={open}
+        setOpen={setOpen}
+        deleteNote={deleteNote}
+      />
     </>
     
   );

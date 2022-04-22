@@ -14,6 +14,8 @@ export default function EmployeeForm({
   loading,
   setLoading,
   setFormSubmitted,
+  setCode,
+  setPopupClose
 }) {
   const initialValues = {
     firstName: "",
@@ -24,12 +26,13 @@ export default function EmployeeForm({
     salary: "",
     departmentId: "",
   };
+
   const [form, setForm] = useState(initialValues);
   const [departments, setDepartments] = useState([]);
   const [selectDate, setSelectDate] = useState(null);
   const [age, setAge] = useState(null);
 
-  initialValues.dateOfBirth = new Date(selectDate).toISOString().split("T")[0];
+
 
   //console.log("selectDate",new Date(selectDate).toISOString())
   //console.log("selectDate_",initialValues.dateOfBirth);
@@ -38,7 +41,7 @@ export default function EmployeeForm({
   const _newDate = new Date(selectDate).getFullYear();
 
   //console.log(_newDate);
-  console.log("_Form Data", form);
+
 
   const validationSchema = Yup.object({
     firstName: Yup.string().required("Required"),
@@ -52,31 +55,36 @@ export default function EmployeeForm({
   });
 
   const handelSubmit = async (values) => {
-    if (validationSchema) {
-      if (employeeCode) {
-        await EmployeeService.update(employeeCode, values).then((response) => {
-          console.log("update");
-        });
-      } else {
-        await EmployeeService.create(values).then((response) => {
-          console.log("crete");
-        });
+    try{
+      if (validationSchema) {
+        if (employeeCode) {
+          await EmployeeService.update(employeeCode, values).then((response) => {
+            console.log("update");
+            setPopupClose(false);
+              setCode();
+          });
+        } else {
+          await EmployeeService.create(values).then((response) => {
+            console.log("crete");
+            setPopupClose(false);
+              
+          });
+        }
       }
+      setFormSubmitted((prev) => prev + 1);
+
+    }catch(e){
+      alert(e);
     }
-    setFormSubmitted((prev) => prev + 1);
-  };
-  const handleDataChange = (e) => {
-    initialValues.departmentId = e.target.value;
-    console.log("initialValues.departmentId", initialValues.departmentId);
+
   };
 
-  console.log("initialValues.departmentId", initialValues.departmentId);
-  const handleDateChange = () => {
-    const _selectDate = new Date(selectDate).getFullYear();
-    const today = new Date().getFullYear();
-    const _age = today - _selectDate;
-    setAge(_age);
-  };
+  // const handleDateChange = () => {
+  //   const _selectDate = new Date(selectDate).getFullYear();
+  //   const today = new Date().getFullYear();
+  //   const _age = today - _selectDate;
+  //   setAge(_age);
+  // };
 
   const getEmployeeByCode = async (code) => {
     await EmployeeService.getByCode(code)
@@ -134,7 +142,7 @@ export default function EmployeeForm({
                   </Grid>
 
                   <Grid item xs={6}>
-                    {/* <Control.Input
+                    <Control.Input
                       type="date"
                       label="Date Of Birth"
                       name="dateOfBirth"
@@ -142,16 +150,17 @@ export default function EmployeeForm({
                         shrink: true,
                       }}
                       inputProps={{
-                        max: today,
+                        max: _today,
                       }}
                       
-                    /> */}
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    />
+                    {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
                       <Stack spacing={3}>
                         <DatePicker
                           disableFuture
-                          label="Responsive"
+                          label="Date Of Birth"
                           openTo="year"
+                          name="dateOfBirth"
                           inputFormat="dd/MM/yyyy"
                           views={["year", "month", "day"]}
                           value={selectDate}
@@ -168,7 +177,7 @@ export default function EmployeeForm({
                           renderInput={(params) => <TextField {...params} />}
                         />
                       </Stack>
-                    </LocalizationProvider>
+                    </LocalizationProvider> */}
                   </Grid>
                   <Grid item xs={6}>
                     <h5>Age: {age}</h5>
