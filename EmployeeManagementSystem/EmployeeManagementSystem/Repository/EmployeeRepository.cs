@@ -35,14 +35,14 @@ namespace EmployeeManagementSystem.Repository
                     while (dataReader.Read())
                     {
                         Employee  employee = new Employee();
-                        employee.EmployeeId = Convert.ToInt32(dataReader["EmployeeId"]);
-                        employee.FirstName = dataReader["FirstName"].ToString();
-                        employee.LastName = dataReader["LastName"].ToString();
-                        employee.Email = dataReader["Email"].ToString();
-                        employee.DateOfBirth = Convert.ToDateTime(dataReader["DateOfBirth"].ToString());
-                        employee.Age = Convert.ToInt32(dataReader["Age"]);
-                        employee.Salary = Convert.ToDecimal(dataReader["Salary"]);
-                        employee.DepartmentId = Convert.ToInt32(dataReader["DepartmentId"]);
+                        employee.employeeId = Convert.ToInt32(dataReader["employeeId"]);
+                        employee.firstName = dataReader["firstName"].ToString();
+                        employee.lastName = dataReader["lastName"].ToString();
+                        employee.email = dataReader["email"].ToString();
+                        employee.dateOfBirth = Convert.ToDateTime(dataReader["dateOfBirth"].ToString());
+                        employee.age = Convert.ToInt32(dataReader["age"]);
+                        employee.salary = Convert.ToDecimal(dataReader["salary"]);
+                        employee.departmentId = Convert.ToInt32(dataReader["departmentId"]);
                         employees.Add(employee);
                     }
                     dataReader.Close();
@@ -71,14 +71,14 @@ namespace EmployeeManagementSystem.Repository
                     SqlDataReader dataReader = command.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        employee.EmployeeId = id;
-                        employee.FirstName = dataReader["FirstName"].ToString();
-                        employee.LastName = dataReader["LastName"].ToString();
-                        employee.Email = dataReader["Email"].ToString();
-                        employee.DateOfBirth = Convert.ToDateTime(dataReader["DateOfBirth"].ToString());
-                        employee.Age = Convert.ToInt32(dataReader["Age"]);
-                        employee.Salary = Convert.ToDecimal(dataReader["Salary"]);
-                        employee.DepartmentId = Convert.ToInt32(dataReader["DepartmentId"]);
+                        employee.employeeId = id;
+                        employee.firstName = dataReader["firstName"].ToString();
+                        employee.lastName = dataReader["lastName"].ToString();
+                        employee.email = dataReader["email"].ToString();
+                        employee.dateOfBirth = Convert.ToDateTime(dataReader["dateOfBirth"].ToString());
+                        employee.age = Convert.ToInt32(dataReader["age"]);
+                        employee.salary = Convert.ToDecimal(dataReader["salary"]);
+                        employee.departmentId = Convert.ToInt32(dataReader["departmentId"]);
                        
                     }
                     dataReader.Close();
@@ -104,13 +104,13 @@ namespace EmployeeManagementSystem.Repository
                     command.CommandText = "[dbo].[SP_CreateEmployee]";
                     command.CommandType = CommandType.StoredProcedure;
                     command.Connection = connection;
-                    command.Parameters.AddWithValue("@FirstName", employee.FirstName.Trim());
-                    command.Parameters.AddWithValue("@LastName", employee.LastName.Trim());
-                    command.Parameters.AddWithValue("@Email", employee.Email.Trim());
-                    command.Parameters.AddWithValue("@DateOfBirth", employee.DateOfBirth);
-                    command.Parameters.AddWithValue("@Age", employee.Age);
-                    command.Parameters.AddWithValue("@Salary", employee.Salary);
-                    command.Parameters.AddWithValue("@DepartmentId", employee.DepartmentId);
+                    command.Parameters.AddWithValue("@firstName", employee.firstName.Trim());
+                    command.Parameters.AddWithValue("@lastName", employee.lastName.Trim());
+                    command.Parameters.AddWithValue("@email", employee.email.Trim());
+                    command.Parameters.AddWithValue("@dateOfBirth", employee.dateOfBirth);
+                    command.Parameters.AddWithValue("@age", employee.age);
+                    command.Parameters.AddWithValue("@salary", employee.salary);
+                    command.Parameters.AddWithValue("@departmentId", employee.departmentId);
                     command.ExecuteNonQuery();
                     command.Dispose();
                     connection.Dispose();
@@ -137,14 +137,14 @@ namespace EmployeeManagementSystem.Repository
                     command.CommandText = "[dbo].[SP_UpdateEmployee]";
                     command.CommandType = CommandType.StoredProcedure;
                     command.Connection = connection;
-                    command.Parameters.AddWithValue("@EmployeeId", employee.EmployeeId);
-                    command.Parameters.AddWithValue("@FirstName", employee.FirstName.Trim());
-                    command.Parameters.AddWithValue("@LastName", employee.LastName.Trim());
-                    command.Parameters.AddWithValue("@Email", employee.Email.Trim());
-                    command.Parameters.AddWithValue("@DateOfBirth", employee.DateOfBirth);
-                    command.Parameters.AddWithValue("@Age", employee.Age);
-                    command.Parameters.AddWithValue("@Salary", employee.Salary);
-                    command.Parameters.AddWithValue("@DepartmentId", employee.DepartmentId);
+                    command.Parameters.AddWithValue("@employeeId", employee.employeeId);
+                    command.Parameters.AddWithValue("@firstName", employee.firstName.Trim());
+                    command.Parameters.AddWithValue("@lastName", employee.lastName.Trim());
+                    command.Parameters.AddWithValue("@email", employee.email.Trim());
+                    command.Parameters.AddWithValue("@dateOfBirth", employee.dateOfBirth);
+                    command.Parameters.AddWithValue("@age", employee.age);
+                    command.Parameters.AddWithValue("@salary", employee.salary);
+                    command.Parameters.AddWithValue("@departmentId", employee.departmentId);
                     command.ExecuteNonQuery();
                     command.Dispose();
                     connection.Dispose();
@@ -170,7 +170,7 @@ namespace EmployeeManagementSystem.Repository
                     command.CommandText = "[dbo].[SP_DeleteEmployee]";
                     command.CommandType = CommandType.StoredProcedure;
                     command.Connection = connection;
-                    command.Parameters.AddWithValue("@EmployeeId", id);
+                    command.Parameters.AddWithValue("@employeeId", id);
                     command.ExecuteNonQuery();
                     command.Dispose();
                     connection.Dispose();

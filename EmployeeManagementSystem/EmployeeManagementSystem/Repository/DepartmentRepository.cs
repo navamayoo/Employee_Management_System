@@ -37,8 +37,8 @@ namespace EmployeeManagementSystem.Repository
                     while (dataReader.Read())
                     {
                         Department department = new Department();
-                        department.DepartmentId = Convert.ToInt32(dataReader["DepartmentId"]);
-                        department.DepartmentName = dataReader["DepartmentName"].ToString();
+                        department.departmentId = Convert.ToInt32(dataReader["departmentId"]);
+                        department.departmentName = dataReader["departmentName"].ToString();
                         departments.Add(department);
 
                     }
@@ -67,8 +67,8 @@ namespace EmployeeManagementSystem.Repository
                     SqlDataReader dataReader = command.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        department.DepartmentId = id;
-                        department.DepartmentName = dataReader["DepartmentName"].ToString();
+                        department.departmentId = id;
+                        department.departmentName = dataReader["departmentName"].ToString();
                     }
                     dataReader.Close();
 
@@ -92,7 +92,7 @@ namespace EmployeeManagementSystem.Repository
                     command.CommandText = "SP_CreateDepartment";
                     command.CommandType = CommandType.StoredProcedure;
                     command.Connection = connection;
-                    command.Parameters.AddWithValue("@DepartmentName", department.DepartmentName.Trim());
+                    command.Parameters.AddWithValue("@departmentName", department.departmentName.Trim());
                     command.ExecuteNonQuery();
                     command.Dispose();
                     connection.Dispose();
@@ -122,8 +122,8 @@ namespace EmployeeManagementSystem.Repository
                     command.CommandText = "SP_UpdateDepartment";
                     command.CommandType = CommandType.StoredProcedure;
                     command.Connection = connection;
-                    command.Parameters.AddWithValue("@DepartmentId", department.DepartmentId);
-                    command.Parameters.AddWithValue("@DepartmentName", department.DepartmentName.Trim());
+                    command.Parameters.AddWithValue("@departmentId", department.departmentId);
+                    command.Parameters.AddWithValue("@departmentName", department.departmentName.Trim());
                     command.ExecuteNonQuery();
                     command.Dispose();
                     connection.Dispose();
@@ -149,7 +149,7 @@ namespace EmployeeManagementSystem.Repository
                     command.CommandText = "SP_DeleteDepartment";
                     command.CommandType = CommandType.StoredProcedure;
                     command.Connection = connection;
-                    command.Parameters.AddWithValue("@DepartmentId", id);
+                    command.Parameters.AddWithValue("@departmentId", id);
                     command.ExecuteNonQuery();
                     command.Dispose();
                     connection.Dispose();

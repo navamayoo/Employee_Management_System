@@ -7631,11 +7631,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\asp_net_core\\EmployeeManagementSystem\\EmployeeManagementSystem\\EmployeeManagementSystem.csproj",
+      "projectUniqueName": "D:\\asp_net_core\\Employee_Management_System\\EmployeeManagementSystem\\EmployeeManagementSystem\\EmployeeManagementSystem.csproj",
       "projectName": "EmployeeManagementSystem",
-      "projectPath": "D:\\asp_net_core\\EmployeeManagementSystem\\EmployeeManagementSystem\\EmployeeManagementSystem.csproj",
+      "projectPath": "D:\\asp_net_core\\Employee_Management_System\\EmployeeManagementSystem\\EmployeeManagementSystem\\EmployeeManagementSystem.csproj",
       "packagesPath": "C:\\Users\\Mayoorann\\.nuget\\packages\\",
-      "outputPath": "D:\\asp_net_core\\EmployeeManagementSystem\\EmployeeManagementSystem\\obj\\",
+      "outputPath": "D:\\asp_net_core\\Employee_Management_System\\EmployeeManagementSystem\\EmployeeManagementSystem\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Mayoorann\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -7,7 +7,7 @@ namespace EmployeeManagementSystem.Models
 {
     public class Department
     {
-        public int DepartmentId { get; set; }
-        public string DepartmentName { get; set; }
+        public int departmentId { get; set; }
+        public string departmentName { get; set; }
     }
 }
