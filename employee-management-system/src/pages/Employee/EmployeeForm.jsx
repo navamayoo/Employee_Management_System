@@ -89,7 +89,15 @@ export default function EmployeeForm({
   const getEmployeeByCode = async (code) => {
     await EmployeeService.getByCode(code)
       .then((response) => {
-        setForm(response);
+
+        const dateOfBirth = new Date(response.dateOfBirth)
+            .toISOString()
+            .split("T")[0];
+          response = JSON.parse(
+            JSON.stringify(response).replace(/:null/gi, ':""')
+          );
+
+        setForm({ ...response, dateOfBirth: dateOfBirth });
         setLoading(true);
       })
       .catch((e) => {
