@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import PageHeader from "../../layout/PageHeader";
+import PageHeader from "../../components/layout/PageHeader";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import AddIcon from "@mui/icons-material/Add";
 import EmployeeForm from "./EmployeeForm";
-import Popup from "../../controls/Dialog/Popup";
-import Control from "../../controls/Control";
+import Popup from "../../components/controls/Dialog/Popup";
+import Control from "../../components/controls/Control";
 import {
   Paper,
   Table,
@@ -41,7 +41,7 @@ export default function Employee() {
   const getStudents = async () => {
     await EmployeeService.getAll()
       .then((response) => {
-        setRecords(response.students);
+        setRecords(response);
       })
       .catch((e) => {
         console.log(e);
@@ -92,19 +92,19 @@ export default function Employee() {
             <TableBody>
               {records.length > 0
                 ? records.map((record) => (
-                    <TableRow key={record.code}>
-                      <TableCell>{record.code}</TableCell>
+                    <TableRow key={record.employeeId}>
+                      <TableCell>{record.employeeId}</TableCell>
                       <TableCell>{record.firstName}</TableCell>
-                      <TableCell>{record.secondName}</TableCell>
+                      <TableCell>{record.lastName}</TableCell>
                       <TableCell>{record.email}</TableCell>
-                      <TableCell>{record.dob}</TableCell>
+                      <TableCell>{record.dateOfBirth}</TableCell>
                       <TableCell>
                         <Control.ActionButton
                           size="small"
                           color="primary"
                           onClick={() => {
                             setOpenPopup(true);
-                            setSelectedEmployeeCode(record.code);
+                            setSelectedEmployeeCode(record.employeeId);
                             setLoading(false);
                           }}
                         >

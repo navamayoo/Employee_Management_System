@@ -8,28 +8,41 @@ export default function SelectInput(props) {
   const { name, label, options, ...rest } = props;
   return (
     <>
-      <FormControl  sx={{ m: 1, minWidth: 120 }} size="small">
+      <FormControl sx={{minWidth: 250 }} size="small">
         <InputLabel>{label}</InputLabel>
-        <Field
+        <Field as={Select} id={name} name={name} {...rest}>
+          {options &&
+            options.map((option, index) => (
+              <MenuItem key={index} value={option.departmentId}>
+                {option.departmentName}
+              </MenuItem>
+            ))}
+        </Field>
+        {/* <Field
           as={Select}
           {...rest}
           name={name}
-         label={label}
-         labelId="demo-simple-select-label"
-         // id={name}
+          label={label}
+          
           size="small"
         >
-          {options.map((option) => (
+          {options &&
+          options.map((option, index) => (
+            <MenuItem key={index} value={option.departmentId}>
+              {option.departmentName}
+            </MenuItem>
+          ))}
+          {/* {options.map((option) => (
             <MenuItem key={option.value} value={option.value}>
               {option.key}
             </MenuItem>
           ))}
-        </Field>
-        {/* <FormHelperText>Required</FormHelperText> */}
+          </Field> 
+        
+        <FormHelperText>Required</FormHelperText> */}
       </FormControl>
-    
-        <ErrorMessage name={name} component={Error}/>
-      
+
+      <ErrorMessage name={name} component={Error} />
     </>
   );
 }

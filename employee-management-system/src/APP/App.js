@@ -2,7 +2,7 @@
 import React from 'react';
 import { BrowserRouter, Routes,Route } from "react-router-dom";
 import XDrawer from '../components/layout/XDrawer'
-import {routes} from '../components/route/routes'
+import {routes} from '../route/routes'
 //, Route, Routes
 export default function App() {
   return (

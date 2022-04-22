@@ -8,7 +8,7 @@ import List from "@mui/material/List";
 import CssBaseline from "@mui/material/CssBaseline";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
-import {routes} from "../route/routes"
+import {routes} from "../../route/routes"
 import { NavLink } from "react-router-dom";
 
 import IconButton from "@mui/material/IconButton";
