@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import DialogActions from "@mui/material/DialogActions";
 import DialogContentText from "@mui/material/DialogContentText";
@@ -13,7 +13,7 @@ import ActionButton from "../../controls/ActionButton";
 import CloseIcon from "@mui/icons-material/Close";
 
 export default function DialogBox(props) {
-  const { title, children, open, setOpen, deleteNote} = props;
+  const { title, open, setOpen, deleteNote} = props;
 
   return (
     <>

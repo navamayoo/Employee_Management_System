@@ -3,13 +3,14 @@ import { Field, ErrorMessage } from "formik";
 import Error from "./ErrorMessage";
 import { TextField } from "@mui/material";
 
-const Input = (props) => {
-  const { name,  ...rest } = props;
+const InputDatePic = (props) => {
+  const { name,onChange,  ...rest } = props;
   return (
     <>
       <Field
         {...rest}
         name={name}
+        onChange={onChange}
         as={TextField}
         fullWidth
         variant="outlined"
@@ -22,4 +23,4 @@ const Input = (props) => {
     </>
   );
 };
-export default Input;
+export default InputDatePic;

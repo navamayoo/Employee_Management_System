@@ -5,6 +5,7 @@ import SelectInput from "./SelectInput";
 import Button from "./Button";
 import ActionButton from "./ActionButton";
 import Selects from "./Selects";
+import InputDatePic from "./InputDatePic";
 
 
 
@@ -16,5 +17,6 @@ SelectInput,
 Button,
 ActionButton,
 Selects,
+InputDatePic,
 }
 export default Control;

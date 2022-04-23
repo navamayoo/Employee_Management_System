@@ -89,7 +89,7 @@ export default function Department() {
             startIcon={<AddIcon />}
           />
         </Toolbar>
-        <TableContainer container={Paper}>
+        <TableContainer container={Paper} >
           <Table border="1">
             <TableHead>
               <TableRow className={classes.root}>
@@ -99,9 +99,10 @@ export default function Department() {
               </TableRow>
             </TableHead>
             <TableBody>
-            {records.length > 0
+            {records&&
+            records.length > 0
                 ? records.map((record) => (
-                    <TableRow key={record.departmentId} sx={{ "& td": { padding: 0 }}}>
+                    <TableRow key={record.departmentId} sx={{ "& td": { padding: 0 },"&.MuiTableRow-root:hover":{backgroundColor: '#c8e6c9' } }}>
                       <TableCell>{record.departmentId}</TableCell>
                       <TableCell>{record.departmentName}</TableCell>
                       <TableCell>

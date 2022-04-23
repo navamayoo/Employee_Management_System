@@ -15,7 +15,7 @@ export default function EmployeeForm({
   setLoading,
   setFormSubmitted,
   setCode,
-  setPopupClose
+  setPopupClose,
 }) {
   const initialValues = {
     firstName: "",
@@ -32,17 +32,6 @@ export default function EmployeeForm({
   const [selectDate, setSelectDate] = useState(null);
   const [age, setAge] = useState(null);
 
-
-
-  //console.log("selectDate",new Date(selectDate).toISOString())
-  //console.log("selectDate_",initialValues.dateOfBirth);
-  const _today = new Date().toISOString().split("T")[0];
-  //console.log("today",_today);
-  const _newDate = new Date(selectDate).getFullYear();
-
-  //console.log(_newDate);
-
-
   const validationSchema = Yup.object({
     firstName: Yup.string().required("Required"),
     lastName: Yup.string().required("Required"),
@@ -55,46 +44,56 @@ export default function EmployeeForm({
   });
 
   const handelSubmit = async (values) => {
-    try{
+    try {
       if (validationSchema) {
         if (employeeCode) {
-          await EmployeeService.update(employeeCode, values).then((response) => {
-            console.log("update");
-            setPopupClose(false);
+          await EmployeeService.update(employeeCode, values).then(
+            (response) => {
+              console.log("update");
+              setPopupClose(false);
               setCode();
-          });
+            }
+          );
         } else {
           await EmployeeService.create(values).then((response) => {
             console.log("crete");
             setPopupClose(false);
-              
           });
         }
       }
       setFormSubmitted((prev) => prev + 1);
-
-    }catch(e){
+    } catch (e) {
       alert(e);
     }
-
   };
 
-  // const handleDateChange = () => {
-  //   const _selectDate = new Date(selectDate).getFullYear();
-  //   const today = new Date().getFullYear();
-  //   const _age = today - _selectDate;
-  //   setAge(_age);
-  // };
+  console.log(selectDate);
+  console.log("selectDate", new Date(selectDate).toISOString());
+  console.log("selectDate_", initialValues.dateOfBirth);
+
+  const _newDate = new Date(selectDate).getFullYear();
+  initialValues.dateOfBirth = new Date(selectDate).toISOString().split("T")[0];
+
+  console.log("_newDate", _newDate);
+
+  //console.log('values',form.values);
+
+  const handleDateChange = () => {
+    const _selectDate = new Date(selectDate).getFullYear();
+    const _today = new Date().getFullYear();
+    const _age = _today - _selectDate;
+    setAge(_age);
+  };
 
   const getEmployeeByCode = async (code) => {
     await EmployeeService.getByCode(code)
       .then((response) => {
         const dateOfBirth = new Date(response.dateOfBirth)
-            .toISOString()
-            .split("T")[0];
-          response = JSON.parse(
-            JSON.stringify(response).replace(/:null/gi, ':""')
-          );
+          .toISOString()
+          .split("T")[0];
+        response = JSON.parse(
+          JSON.stringify(response).replace(/:null/gi, ':""')
+        );
 
         setForm({ ...response, dateOfBirth: dateOfBirth });
         setLoading(true);
@@ -122,7 +121,9 @@ export default function EmployeeForm({
       setLoading(true);
     }
   }, [employeeCode]);
+  console.log(form);
 
+  const today = new Date().toISOString().split("T")[0];
   return (
     <>
       {loading ? (
@@ -157,17 +158,17 @@ export default function EmployeeForm({
                         shrink: true,
                       }}
                       inputProps={{
-                        max: _today,
+                        max: today,
                       }}
                       
                     />
+
                     {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
                       <Stack spacing={3}>
                         <DatePicker
                           disableFuture
-                          label="Date Of Birth"
+                          label="Responsive"
                           openTo="year"
-                          name="dateOfBirth"
                           inputFormat="dd/MM/yyyy"
                           views={["year", "month", "day"]}
                           value={selectDate}
@@ -198,7 +199,6 @@ export default function EmployeeForm({
                       label="Department"
                       options={departments}
                       name="departmentId"
-                      //onChange={handleDataChange}
                     />
                   </Grid>
 
