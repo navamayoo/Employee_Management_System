@@ -28,8 +28,11 @@ namespace EmployeeManagementSystem.Repository
             {
                 try
                 {
-                    string sql = "select * from Employees";
-                    command = new SqlCommand(sql, connection);
+                 
+                    command = new SqlCommand();
+                    command.CommandText = "[dbo].[SP_SelectEmployees]";
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Connection = connection;
                     connection.Open();
                     SqlDataReader dataReader = command.ExecuteReader();
                     while (dataReader.Read())
@@ -43,6 +46,7 @@ namespace EmployeeManagementSystem.Repository
                         employee.age = Convert.ToInt32(dataReader["age"]);
                         employee.salary = Convert.ToDecimal(dataReader["salary"]);
                         employee.departmentId = Convert.ToInt32(dataReader["departmentId"]);
+                        employee.departmentName = dataReader["departmentName"].ToString();
                         employees.Add(employee);
                     }
                     dataReader.Close();
