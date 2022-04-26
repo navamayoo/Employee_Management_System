@@ -50,32 +50,26 @@ export default function Employee() {
       });
   };
 
-  
   const deleteNote = async () => {
-   
     await EmployeeService.delete(selectedCode)
       .then((response) => {
-        setSelectedCode(null)
-        setOpen(false)
+        setSelectedCode(null);
+        setOpen(false);
         setFormSubmitted((prev) => prev + 1);
         console.log(response);
-        
       })
       .catch((e) => {
         console.log(e);
       });
+  };
 
-};
-
-const handelSetOpenPopup = (val) => {
-  setOpenPopup(val);
-};
+  const handelSetOpenPopup = (val) => {
+    setOpenPopup(val);
+  };
 
   useEffect(() => {
     getStudents();
   }, [FormSubmitted]);
-
-  
 
   return (
     <>
@@ -83,7 +77,6 @@ const handelSetOpenPopup = (val) => {
         title="Employee"
         icon={<PersonAddAlt1Icon fontSize="large" />}
       />
-
 
       <Paper
         elevation={0}
@@ -101,26 +94,45 @@ const handelSetOpenPopup = (val) => {
           />
         </Toolbar>
         <TableContainer container={Paper}>
-          <Table border="1" sx={{ borderColor: 'primary.main' }}>
+          <Table border="1" sx={{ borderColor: "primary.main" }}>
             <TableHead>
-              <TableRow className={classes.root} sx={{ "& td": { padding: 0 ,textAlign:'center'}}}>
+              <TableRow
+                className={classes.root}
+                sx={{ "& td": { padding: 0, textAlign: "center" } }}
+              >
                 <TableCell>Code</TableCell>
                 <TableCell>First Name</TableCell>
                 <TableCell>Last Name</TableCell>
                 <TableCell>E-mail</TableCell>
                 <TableCell>Date Of Birth</TableCell>
+                <TableCell>Department</TableCell>
                 <TableCell>Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {records.length > 0
                 ? records.map((record) => (
-                    <TableRow key={record.employeeId} sx={{ "& td": { padding: 0 ,textAlign:'center'},"&.MuiTableRow-root:hover":{backgroundColor: '#c8e6c9' } }}>
+                    <TableRow
+                      key={record.employeeId}
+                      sx={{
+                        "& td": { padding: 0, textAlign: "center" },
+                        "&.MuiTableRow-root:hover": {
+                          backgroundColor: "#c8e6c9",
+                        },
+                      }}
+                    >
                       <TableCell>{record.employeeId}</TableCell>
                       <TableCell>{record.firstName}</TableCell>
                       <TableCell>{record.lastName}</TableCell>
                       <TableCell>{record.email}</TableCell>
-                      <TableCell>{new Date(record.dateOfBirth).toISOString().split("T")[0]} </TableCell>
+                      <TableCell>
+                        {
+                          new Date(record.dateOfBirth)
+                            .toISOString()
+                            .split("T")[0]
+                        }{" "}
+                      </TableCell>
+                      <TableCell>{record.departmentName}</TableCell>
                       <TableCell>
                         <Control.ActionButton
                           size="small"
@@ -133,11 +145,14 @@ const handelSetOpenPopup = (val) => {
                         >
                           <EditIcon fontSize="small" />
                         </Control.ActionButton>
-                        <Control.ActionButton size="small" color="error"
-                        onClick={() => {
-                          setOpen(true);
-                          setSelectedCode(record.employeeId);
-                        }}>
+                        <Control.ActionButton
+                          size="small"
+                          color="error"
+                          onClick={() => {
+                            setOpen(true);
+                            setSelectedCode(record.employeeId);
+                          }}
+                        >
                           <DeleteIcon fontSize="small" />
                         </Control.ActionButton>
                       </TableCell>
@@ -155,8 +170,8 @@ const handelSetOpenPopup = (val) => {
       >
         {openPopup && (
           <EmployeeForm
-          employeeCode={selectedCode}
-          setCode={() => setSelectedCode(null)}
+            employeeCode={selectedCode}
+            setCode={() => setSelectedCode(null)}
             loading={loading}
             setLoading={(val) => setLoading(val)}
             setFormSubmitted={setFormSubmitted}
@@ -171,6 +186,5 @@ const handelSetOpenPopup = (val) => {
         deleteNote={deleteNote}
       />
     </>
-    
   );
 }

@@ -36,7 +36,7 @@ export default function EmployeeForm({
     firstName: Yup.string().required("Required"),
     lastName: Yup.string().required("Required"),
     email: Yup.string().email("Invalid Email Format").required("Required!"),
-    dateOfBirth: Yup.string().required("Required"),
+   // dateOfBirth: Yup.string().required("Required"),
     departmentId: Yup.string().required("Required"),
     salary: Yup.number()
       .min(9, "Must be more than 10 characters")
@@ -44,24 +44,25 @@ export default function EmployeeForm({
   });
 
   const handelSubmit = async (values) => {
+    console.log("its works");
     try {
-      if (validationSchema) {
-        if (employeeCode) {
-          await EmployeeService.update(employeeCode, values).then(
-            (response) => {
-              console.log("update");
-              setPopupClose(false);
-              setCode();
-            }
-          );
-        } else {
-          await EmployeeService.create(values).then((response) => {
-            console.log("crete");
-            setPopupClose(false);
-          });
+    if (validationSchema) {
+    if (employeeCode) {
+      await EmployeeService.update(employeeCode, values).then(
+        (response) => {
+          console.log("update");
+          setPopupClose(false);
+          setCode();
         }
-      }
-      setFormSubmitted((prev) => prev + 1);
+      );
+    } else {
+      await EmployeeService.create(values).then((response) => {
+        console.log("crete");
+        setPopupClose(false);
+      });
+    }
+    }
+    setFormSubmitted((prev) => prev + 1);
     } catch (e) {
       alert(e);
     }
@@ -69,10 +70,10 @@ export default function EmployeeForm({
 
   console.log(selectDate);
   console.log("selectDate", new Date(selectDate).toISOString());
+  console.log("select-Date", selectDate);
   console.log("selectDate_", initialValues.dateOfBirth);
 
   const _newDate = new Date(selectDate).getFullYear();
-  initialValues.dateOfBirth = new Date(selectDate).toISOString().split("T")[0];
 
   console.log("_newDate", _newDate);
 
@@ -94,7 +95,8 @@ export default function EmployeeForm({
         response = JSON.parse(
           JSON.stringify(response).replace(/:null/gi, ':""')
         );
-
+          setAge(response.age);
+          setSelectDate(dateOfBirth);
         setForm({ ...response, dateOfBirth: dateOfBirth });
         setLoading(true);
       })
@@ -131,7 +133,9 @@ export default function EmployeeForm({
           initialValues={form}
           validationSchema={validationSchema}
           onSubmit={async (values, onSubmitProps) => {
-            await handelSubmit(values);
+            const dateOfBirth = new Date(selectDate).toISOString().split("T")[0];
+            const data={...values, dateOfBirth,age};
+            await handelSubmit(data);
             onSubmitProps.resetForm();
           }}
         >
@@ -150,7 +154,7 @@ export default function EmployeeForm({
                   </Grid>
 
                   <Grid item xs={6}>
-                    <Control.Input
+                    {/* <Control.Input
                       type="date"
                       label="Date Of Birth"
                       name="dateOfBirth"
@@ -161,9 +165,9 @@ export default function EmployeeForm({
                         max: today,
                       }}
                       
-                    />
+                    /> */}
 
-                    {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
                       <Stack spacing={3}>
                         <DatePicker
                           disableFuture
@@ -180,12 +184,12 @@ export default function EmployeeForm({
                             shrink: true,
                           }}
                           inputProps={{
-                            max: _today,
+                            max: today,
                           }}
                           renderInput={(params) => <TextField {...params} />}
                         />
                       </Stack>
-                    </LocalizationProvider> */}
+                    </LocalizationProvider>
                   </Grid>
                   <Grid item xs={6}>
                     <h5>Age: {age}</h5>
